@@ -5,7 +5,7 @@ import java.util.*;
 public class Array_Manipulation {
     static Scanner sc=new Scanner(System.in);
     public static void main(String[] args) {
-        int n,opt,go=1;
+        int n,go=1,o;
         System.out.print("Enter size of the array:");
         n = sc.nextInt();
         ArrayList<Integer> arr = new ArrayList<>();
@@ -15,8 +15,8 @@ public class Array_Manipulation {
         }
         do {
             System.out.println("Enter any of the following:\n1)Swap\t2)Display\t3)Insert\t4)Searching\t5)Sorting\t0)Exit");
-            opt = sc.nextInt();
-            switch (opt) {
+            o = sc.nextInt();
+            switch (o) {
                 case 1:
                     swap(arr);
                     break;
@@ -28,7 +28,8 @@ public class Array_Manipulation {
                     int v=sc.nextInt();
                     insert(arr,v);
                     break;
-                case 4:int s=0,search,e=arr.size()-1;
+                case 4:
+                    int s=0,search=-1,e=arr.size()-1;
                     System.out.print("Enter the value to be searched:");
                     int value= sc.nextInt();
                     System.out.println("Enter 1  to Custom Range,anything else for default");
@@ -40,47 +41,51 @@ public class Array_Manipulation {
                         e=sc.nextInt();
                     }
                     System.out.println("Enter the method of Searching:\n1)Linear Search\t2)Binary Search");
-                    int o=sc.nextInt();
+                    o=sc.nextInt();
                     switch (o){
                         case 1:
                             search= linearSearch(arr,value,s,e);
-                            if(search!=-1){
-                                System.out.println(value+" found at index no:"+search);
-                            }
-                            else{
-                                System.out.println(value+" not found,press 1 if you want to insert it:");
-                                o=sc.nextInt();
-                                if(o==1){
-                                    insert(arr,value);
-                                }
-                            }
                             break;
                         case 2:
                             bubbleSort(arr);
                             search= BinarySearch(arr,value,s,e);
-                            if(search!=-1){
-                                System.out.println(value+" found at index no:"+search);
-                            }
-                            else{
-                                System.out.println(value+" not found,press 1 if you want to insert it:");
-                                o=sc.nextInt();
-                                if(o==1){
-                                    insert(arr,value);
-                                }
-                            }
                             break;
                         default:
-                            System.out.println("Invalid choice");
+                            bubbleSort(arr);
+                            search= BinarySearch(arr,value,s,e);
                             break;
+                    }
+                    if(search!=-1){
+                        System.out.println(value+" found at index no:"+search);
+                    }
+                    else{
+                        System.out.println(value+" not found,press 1 if you want to insert it:");
+                        o=sc.nextInt();
+                        if(o==1){
+                            insert(arr,value);
+                        }
                     }
                     break;
                 case 5:
-                    bubbleSort(arr);
+                    System.out.println("Enter the method of Searching:\n1)Bubble Sort\t2)Selection Sort\t3)Insertion Sort");
+                    o=sc.nextInt();
+                    switch (o){
+                        case 1:
+                            bubbleSort(arr);
+                            break;
+                        case 2:
+                            selectionSort(arr);
+                            break;
+                        case 3:
+                            insertionSort(arr);
+                            break;
+                    }
                     break;
                 case 0:
                     go=0;
                     break;
                 default:
+                    System.out.println(arr);
                     System.out.println("Invalid choice");
                     break;
             }
@@ -146,6 +151,36 @@ public class Array_Manipulation {
                     arr.set(j+1,temp );
                 }
 
+            }
+        }
+        display(arr);
+    }
+    static void selectionSort(ArrayList<Integer> arr){
+        int min=0,index=0,i,j;
+        for (i = 0; i <arr.size() ; i++) {
+            min= arr.get(i);
+            index=i;
+            for (j=i+1;j<arr.size();j++){
+                if(arr.get(j)<min){
+                    index=j;
+                }
+            }
+            int temp=arr.get(i);
+            arr.set(i, arr.get(index));
+            arr.set(index,temp );
+        }
+        display(arr);
+    }
+    static void insertionSort(ArrayList<Integer> arr){
+        for (int i = 0; i < arr.size()-1; i++) {
+            for (int j = i+1; j >0; j--) {
+                if (arr.get(j)<arr.get(j-1)) {
+                    int t= arr.get(j);
+                    arr.set(j,arr.get(j-1));
+                    arr.set(j-1,t);
+                }else {
+                    break;
+                }
             }
         }
         display(arr);
