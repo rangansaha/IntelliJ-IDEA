@@ -47,11 +47,11 @@ public class Array_Manipulation {
                             search= linearSearch(arr,value,s,e);
                             break;
                         case 2:
-                            bubbleSort(arr);
+                            insertionSort(arr);
                             search= BinarySearch(arr,value,s,e);
                             break;
                         default:
-                            bubbleSort(arr);
+                            insertionSort(arr);
                             search= BinarySearch(arr,value,s,e);
                             break;
                     }
@@ -67,7 +67,7 @@ public class Array_Manipulation {
                     }
                     break;
                 case 5:
-                    System.out.println("Enter the method of Searching:\n1)Bubble Sort\t2)Selection Sort\t3)Insertion Sort");
+                    System.out.println("Enter the method of Searching:\n1)Bubble Sort\t2)Selection Sort\t3)Insertion Sort\t4)Cycle Sort(Make sure all the numbers from 1 till the largest no. are present,if not then first insert all remaining numbers.)");
                     o=sc.nextInt();
                     switch (o){
                         case 1:
@@ -77,6 +77,12 @@ public class Array_Manipulation {
                             selectionSort(arr);
                             break;
                         case 3:
+                            insertionSort(arr);
+                            break;
+                        case 4:
+                            cycleSort(arr);
+                            break;
+                        default:
                             insertionSort(arr);
                             break;
                     }
@@ -181,6 +187,20 @@ public class Array_Manipulation {
                 }else {
                     break;
                 }
+            }
+        }
+        display(arr);
+    }
+    static void cycleSort(ArrayList<Integer> arr){
+        int i=0;
+        while (i< arr.size()){
+            int correct=arr.get(i)-1;
+            if(arr.get(i)!= arr.get(correct)){
+                int t=arr.get(i);
+                arr.set(i,arr.get(correct));
+                arr.set(correct,t);
+            }else {
+                i++;
             }
         }
         display(arr);
