@@ -24,21 +24,29 @@ public class Matrix_Search {
             i= sc.nextInt();
         }
     }
-    static void search(int[][] m,int v){
-        int r=0,c=m.length-1,f=0;
-        do {
-           if(m[r][c]==v){
-               System.out.println(v+" is found in row no. "+(r+1)+" & column no. "+(c+1));
-               f=1;
-               break;
-           }else if(m[r][c]<v){
-               r++;
-           }else{
-               c--;
-           }
-        }while(r!=m.length && c!=-1);
-        if(f==0){
-            System.out.println(v+" isn't present in the array");
-        }
+    static void search(int[][] matrix, int target){
+        int d=0;
+            if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+                System.out.println(target+" isn't present in the matrix");
+                return;
+            }
+
+            int rows = matrix.length;
+            int cols = matrix[0].length;
+            int r = 0;
+            int c = cols - 1;
+
+            while (r < rows && c >= 0) {
+                if (matrix[r][c] == target) {
+                    System.out.println(target+" is present in the matrix at row index no. "+r+" & column index no. "+c);
+                    return;
+                } else if (matrix[r][c] < target) {
+                    r++;
+                } else {
+                    c--;
+                }
+            }
+
+           System.out.println(target+" isn't present in the matrix");
     }
 }
