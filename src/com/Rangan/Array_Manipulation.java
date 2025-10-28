@@ -67,7 +67,7 @@ public class Array_Manipulation {
                     }
                     break;
                 case 5:
-                    System.out.println("Enter the method of Searching:\n1)Bubble Sort\t2)Selection Sort\t3)Insertion Sort\t4)Cycle Sort(Make sure all the numbers from 1 till the largest no. are present,if not then first insert all remaining numbers.)");
+                    System.out.println("Enter the method of Searching:\n1)Bubble Sort\n2)Selection Sort\n3)Insertion Sort\n4)Cycle Sort(Make sure all the numbers from 1 till the largest no. are present,if not then first insert all remaining numbers.)\n5)Merge Sort");
                     o=sc.nextInt();
                     switch (o){
                         case 1:
@@ -82,6 +82,8 @@ public class Array_Manipulation {
                         case 4:
                             cycleSort(arr);
                             break;
+                        case 5:
+                            mergeSort(arr);
                         default:
                             insertionSort(arr);
                             break;
@@ -205,4 +207,48 @@ public class Array_Manipulation {
         }
         display(arr);
     }
+    static ArrayList<Integer> mergeSort(ArrayList<Integer> arr) {
+        if (arr.size() < 2) {
+            return arr;
+        } else {
+            int mid = arr.size() / 2;
+
+            // Split the array into two halves
+            ArrayList<Integer> left = new ArrayList<>(arr.subList(0, mid));
+            ArrayList<Integer> right = new ArrayList<>(arr.subList(mid, arr.size()));
+
+            // Recursively sort each half
+            left = mergeSort(left);
+            right = mergeSort(right);
+
+            // ✅ Now merge (sort) the two halves directly here
+            ArrayList<Integer> result = new ArrayList<>();
+            int i = 0, j = 0;
+
+            while (i < left.size() && j < right.size()) {
+                if (left.get(i) < right.get(j)) {
+                    result.add(left.get(i));
+                    i++;
+                } else {
+                    result.add(right.get(j));
+                    j++;
+                }
+            }
+
+            // Copy remaining elements from left
+            while (i < left.size()) {
+                result.add(left.get(i));
+                i++;
+            }
+
+            // Copy remaining elements from right
+            while (j < right.size()) {
+                result.add(right.get(j));
+                j++;
+            }
+
+            return result;
+        }
+    }
+
 }
